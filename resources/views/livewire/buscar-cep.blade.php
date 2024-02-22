@@ -5,10 +5,14 @@
         </div>
 
         <div class="px-4 py-6">
-            <div class="flex gap-3">
+            <div x-data="{
+                postalCodeMask(e){
+                    e.value = e.value.replace(/\D/g, '')
+                    .replace(/(\d{5})(\d{3})/, '$1-$2');
+                }}" class="flex gap-3">
                 <x-text-input
                     maxlength="9"
-                    oninput="postalCodeMask(this)"
+                    @input="postalCodeMask($event.target)"
                     class="w-full py-2 rounded" 
                     wire:model="inputCep"
                     wire:keydown.enter="searchCep"
@@ -67,12 +71,14 @@
         </div>
     </div>
     <x-loading-spinner 
-        wire:loading
-        wire:target="searchCep"
-        class="hidden w-16 h-16" />
+    wire:loading
+    wire:target="searchCep"
+    class="hidden w-16 h-16" />
 </div>
-<script>
-    function postalCodeMask(input) {
-        input.value = input.value.replace(/\D/g, '').replace(/(\d{5})(\d{3})/, '$1-$2');
-    }
-</script>
+{{-- @script
+    <script>
+        function postalCodeMask(input) {
+            input.value = input.value.replace(/\D/g, '').replace(/(\d{5})(\d{3})/, '$1-$2');
+        }
+    </script>
+@endscript --}}

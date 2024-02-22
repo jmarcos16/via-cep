@@ -33,5 +33,7 @@
                 {{ $slot }}
             </main>
         </div>
+
+        @slot('scripts')
     </body>
 </html>
