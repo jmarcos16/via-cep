@@ -7,7 +7,8 @@
         <div class="px-4 py-6">
             <div class="flex gap-3">
                 <x-text-input
-                    x-mask:dynamic="postalCodeMask"
+                    maxlength="9"
+                    oninput="postalCodeMask(this)"
                     class="w-full py-2 rounded" 
                     wire:model="inputCep"
                     wire:keydown.enter="searchCep"
@@ -72,6 +73,6 @@
 </div>
 <script>
     function postalCodeMask(input) {
-        return input.replace(/\D/g, '').replace(/(\d{5})(\d{3})/, '$1-$2')
+        input.value = input.value.replace(/\D/g, '').replace(/(\d{5})(\d{3})/, '$1-$2');
     }
 </script>
